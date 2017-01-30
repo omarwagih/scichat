@@ -1,0 +1,47 @@
+#areainterest label{
+	margin-right:10px !important;
+}
+
+.container{
+	width: 100% !important;
+}
+
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+	background-color: transparent !important;
+}
+
+.nav-pills>li.active>a{
+	color: #333333;
+}
+
+.nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+	color: #742878 !important;
+}
+
+
+a:hover{
+	background-color: transparent !important;
+}
+
+
+.label-primary {
+    background-color: #742878;
+}
+
+
+@font-face {
+    font-family: Avenir;
+    font-weight: normal;
+    src: url(../fonts/avenir/Avenir-Light.ttf);
+}
+
+@font-face {
+    font-family: Avenir;
+    font-weight: bold;
+    src: url(../fonts/avenir/Avenir-Medium.ttf);
+}
+
+html,body{
+	font-family: 'Avenir';
+}

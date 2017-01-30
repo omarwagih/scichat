@@ -1,0 +1,13 @@
+Professional/technical
+Manager/official
+Clerical
+Sales
+Crafts/trades
+Operator
+Labourer
+Service worker
+Retired
+Homemaker
+Student
+Unemployed
+Other

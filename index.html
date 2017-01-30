@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="images/favicon.ico">
+
+    <title>SciChat</title>
+
+    <script src="js/firebase.js"></script>
+    <script src="js/firebase_init.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="js/flatui/dist/css/flatui.custom.css" rel="stylesheet" />
+    <script src="js/flatui/dist/js/flat-ui.js"></script>
+
+
+    <link href="css/main.css" rel="stylesheet">
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template -->
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+      $(document).ready(function(){
+        $('#userType').on('change', function() {
+          if ( this.value == 'scientist')
+          {
+            $("#publicOptions").hide();
+            $("#scientistOptions").show();
+          } else if (this.value == 'public') {
+            $("#scientistOptions").hide();
+            $("#publicOptions").show();
+          }
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+
+            <li style="display:none"><a href="#" cid="landing_page" class="nav-btn" id="landing-page-nav">Chat</a></li>
+           <!--  <li><a href="#" cid="home" class="nav-btn" id="home-nav">Home</a></li> -->
+            <li><a href="#" cid="about" class="nav-btn">About</a></li>
+            <li><a href="#" cid="signup" class="nav-btn" id="signup-nav">Sign up</a></li>
+            <li><a href="#" cid="signin_redirect" class="nav-btn" id="login-nav">Log in</a></li>
+            <li><a href="#" id="btnLogout">Log out</a></li>
+
+            <li>
+              <button id="btnLogout" class="btn btn-lg btn-primary btn-block hide">
+                Log Out
+              </button>
+            </li>
+          </ul>
+        </nav>
+        <a href="#" cid="home" class="nav-btn" id="home-nav"><img src="images/logonew.svg" alt="logo" style="height:50px;"></a>
+      </div>
+
+    <!-- Homepage -->
+
+    <div class="content" id ="home">
+        <center>
+          <img src="images/frontcover.png" alt="logo" style="width:100%;">
+          <h1>Welcome to SciChat!</h1>
+          <p></p>
+          <p>
+            <button class="btn btn-lg btn-primary" role="button" cid="signin_redirect" onclick="$('#signup-nav').click();">Get started!</button>
+          </p>
+          </center>
+    </div>
+
+    <!-- About -->
+    <div class="content" id="about">
+          <h2 class="lead">What is SciChat?</h2>
+          <p style="text-align:justify;"> SciChat gives you the chance to chat to a scientist live, ask questions you have, or just find out more about a particular topic. It works by matching experts in a field with users who want to talk about that area of science, and letting the discussion flow freely.
+          </p>
+          <h2 class="lead">Frequently Asked Questions</h2>
+          <b style="font-size:150%;"> How do I use SciChat to talk to a scientist? </b>
+          <p style="text-align:justify;">Once signed in, you can choose a topic to chat about, then just click ‘start chatting’ and we’ll connect you to a relevant academic.
+          </p>
+          <b style="font-size:150%;"> How are scientists verified?  </b>
+          <p style="text-align:justify;">We check that all our scientists belong to an academic institution before they can sign up.
+          </p>
+          <b style="font-size:150%;"> Can I message scientists directly? </b>
+          <p style="text-align:justify;">SciChat is all about live discussions with members that are online, so unfortunately we don’t currently support messaging.
+          </p>
+    </div>
+
+    <div class="content" id="signup">
+
+      <center> <h4 class="form-signin-heading">Create your account</h4> </center>
+
+      <form class="form-horizontal">
+
+        <div class="form-group">
+          <label for="userType" class="col-sm-2 control-label">I am ...</label>
+          <div class="col-sm-10">
+              <select id="userType" class="form-control">
+            <option disabled selected=""> Select an option </option>
+            <option value="scientist">a scientist</option>
+            <option value="public">looking to chat with a scientist</option>
+          </select>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+          <div class="col-sm-10"> <input type="email" class="form-control" id="inputEmail" placeholder="Email"> </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+          <div class="col-sm-10"> <input type="password" class="form-control" id="inputPassword" placeholder="Password"> </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputPasswordConfirm" class="col-sm-2 control-label"></label>
+          <div class="col-sm-10"> <input type="password" class="form-control" id="inputPasswordConfirm" placeholder="Retype password"> </div>
+        </div>
+      </form>
+
+
+      <form class="form-horizontal" id="scientistOptions" style="display:none">
+
+        <div class="form-group">
+          <label for="userType" class="col-sm-2 control-label">Research field</label>
+          <div class="col-sm-10">
+            <select id="ResearchField" class="form-control">
+              <option value="biology">Biology</option>
+              <option value="chemistry">Chemistry</option>
+              <option value="computerScience">Computer Science</option>
+              <option value="mathematics">Mathematics</option>
+              <option value="physics">Physics</option>
+              <option value="psychology">Psychology</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userType" class="col-sm-2 control-label">Position</label>
+          <div class="col-sm-10">
+            <select id="Position" class="form-control">
+              <option value="mastersStudent">Master's Student</option>
+              <option value="phdStudent">PhD Student</option>
+              <option value="postdoc">Postdoc Researcher</option>
+              <option value="groupleader">Group Leader</option>
+              <option value="professor">Professor</option>
+          </select>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="userType" class="col-sm-2 control-label">Interest</label>
+          <div class="col-sm-10" id="areainterest">
+            <label> <input type="checkbox" value="cancer" class="checkbox-inline"> Cancer </label>
+            <label> <input type="checkbox" value="immunology" class="checkbox-inline"> Immunology  </label>
+            <label> <input type="checkbox" value="metabolism" class="checkbox-inline"> Metabolism </label>
+            <label> <input type="checkbox" value="evolution" class="checkbox-inline"> Evolution </label>
+            <label> <input type="checkbox" value="chemistry" class="checkbox-inline"> Chemistry </label>
+            <label> <input type="checkbox" value="physics" class="checkbox-inline"> Physics </label>
+            <label> <input type="checkbox" value="mathematics" class="checkbox-inline"> Mathematics </label>
+            <label> <input type="checkbox" value="Astronomy" class="checkbox-inline"> Astronomy</label>
+
+
+          </div>
+
+        </div>
+      </form>
+
+      <form class="form-horizontal" id="publicOptions" style="display:none">
+
+
+
+        <div class="form-group">
+          <label for="userType" class="col-sm-2 control-label">Occupation</label>
+          <div class="col-sm-10">
+            <select name="occupation" id="occupation" class="form-control">
+                <option value="professional">Professional</option>
+                <option value="student">Student</option>
+                <option value="retired">Retired</option>
+                <option value="unemployed">Unemployed</option>
+                <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="age" class="col-sm-2 control-label">Age</label>
+          <div class="col-sm-3">
+            <input type="number" id="age" class="form-control">
+          </div>
+        </div>
+      </form>
+
+
+      <div class="form-horizontal" id="signUpForm" >
+
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button id="btnSignUp" type="submit" class="btn btn-primary btn-block">Sign me up!</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!-- Signin redirect -->
+    <div class="content" id="signin_redirect">
+
+      <center>
+      <h4 class="form-signin-heading">Login to your account</h4>
+
+
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="inputEmail_2" class="col-sm-2 control-label">Email</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" id="inputEmail_2" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword_2" class="col-sm-2 control-label">Password</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="inputPassword_2" placeholder="Password">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" id="btnLogin" class="btn btn-primary btn-block">Sign in</button>
+            <button type="submit" class="btn btn-primary btn-block nav-btn" cid="signup">I'm new here - sign me up!</button>
+          </div>
+        </div>
+      </form>
+      </center>
+
+
+
+<!--       <label for="inputEmail_2" class="sr-only">Email address</label>
+      <input type="email" id="inputEmail_2" class="form-control" placeholder="Email address" required autofocus>
+      <label for="inputPassword_2" class="sr-only">Password</label>
+      <input type="password" id="inputPassword_2" class="form-control" placeholder="Password" required>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button id="btnLogin" class="btn btn-lg btn-primary btn-block">Sign In</button> -->
+
+    </div> <!-- END CONTENT -->
+
+
+    <!-- Scientist login -->
+
+    <!-- Public login -->
+
+    <!-- Scientist homepage -->
+
+
+
+    <!-- Public homepage -->
+
+    <!-- Chat page -->
+    <div class="content" id="landing_page">
+        <center><h4>Welcome human!</h4></center>
+
+        <div id="landing_sci" style="display:none">
+            <center><p>Hit to the button below to begin pairing!</p></center>
+            <button class="btn btn-primary btn-block btn-lg pair-me ">Pair me with someone interested!</button>
+        </div>
+
+
+        <div id="landing_nonsci" style="display:none">
+
+            <center><p>Select your chat topic and hit the button below to begin pairing!</p></center>
+
+            <select class="form-control" id="selected_topic">
+              <option value="cancer">Cancer</option>
+              <option value="immunology">Immunology</option>
+              <option value="metabolism">Metabolism</option>
+              <option value="evolution">Evolution</option>
+              <option value="chemistry">Chemistry</option>
+              <option value="physics">Physics</option>
+              <option value="mathematics">Mathematics</option>
+              <option value="astronomy">Astronomy</option>
+            </select>
+
+            <br>
+            <button class="btn btn-primary btn-block btn-lg pair-me">Pair me with a scientist in this field!</button>
+        </div>
+
+
+    </div>
+
+
+    <div class="content" id="wait_pair">
+        <center>
+
+        <h5><img src="images/comment.svg" style="height:80px"> Hold tight we're trying to pair you with someone!</h5>
+        <button class="btn btn-primary" id="cancel-pair">Cancel</button>
+
+        <!-- <h5>While waiting...why not check out these papers?</h5>
+        <div id='random_papers'></div> -->
+
+        </center>
+    </div>
+
+    <div class="content" id="chatbox">
+
+        <h6><span id="chatbox-title" class="label label-primary">You are chatting with annonymous</span></h6>
+       <div id="actions">
+
+        <div style="display:none">
+          Your PeerJS ID is <span id="pid"></span><br>
+
+          Connect to a peer:
+          <input type="text" id="rid" placeholder="Someone else's id">
+          <input class="button" type="button" value="Connect" id="connect">
+          <br><br>
+        </div>
+
+        <div class="panel panel-default" style="height:300px">
+          <div id="connections" class="panel-body">
+            <!--Shows while waiting hide -->
+            <span class="filler"></span>
+
+          </div>
+        </div>
+
+
+        <form id="send">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+               <input type="text" class="form-control" id="text" placeholder="Enter message">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary">Send</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+
+        </form>
+
+        <!-- <form class="form-inline" id="send" style="width:100%">
+          <div class="form-group">
+            <input type="text" class="form-control" id="text" placeholder="Enter message">
+          </div>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+ -->
+
+
+
+    <div><!--CONTENT CHATBOX END-->
+
+
+    </div> <!-- /container -->
+
+      <script src="js/landing.js"></script>
+      <script src="js/signup_beta.js"></script>
+      <script src="js/peer.js"></script>
+      <script src="js/peer_chat.js"></script>
+
+      <script>
+      switchPage = function(elem){
+          if(peer_opened){
+            console.log('-- still have peer connections open!')
+            var conf = confirm('Are you sure you want to navigate away? This will end the chat session');
+            if(conf){
+              peer.destroy();
+              // Remove users from database pool
+              removeUserFromPool();
+              peer_opened = false;
+            }
+            if(!conf) return;
+          }
+
+          var cid = elem.attr("cid");
+          $('.content').hide();
+
+          if(cid == "home") $('.nav-btn').parent().removeClass("active");
+
+          var prnt = elem.parent();
+          if(prnt.is('li')){
+            $('.nav-btn').parent().removeClass("active");
+            prnt.addClass("active")
+          }
+
+          $('#'+cid).show();
+          sessionStorage.setItem('last_cid', cid);
+      }
+
+      $('.nav-btn').click(function(){ switchPage( $(this) ) });
+
+      initPages = function(){
+        last_cid = sessionStorage.getItem('last_cid');
+        $('.nav-btn[cid="home"]').first().click();
+        // if(last_cid == null){
+        //     $('.nav-btn').first().click();
+        // }else{
+        //     $('.nav-btn[cid="'+last_cid+'"]').first().click();
+        // }
+      }
+
+      initPages();
+
+
+      </script>
+
+
+
+  </body>
+</html>
