@@ -73,22 +73,22 @@ peer_opened = false;
 initPeer = function(){
   // Connect to PeerJS, have server assign an ID instead of providing one
   // Showing off some of the configs available with PeerJS :).
-  peer = new Peer({
-    // Set API key for cloud server (you don't need this if you're running your
-    // own.
-    key: 'lkciswqtzj7l23xr',
+  // peer = new Peer({
+  //   // Set API key for cloud server (you don't need this if you're running your
+  //   // own.
+  //   key: 'lkciswqtzj7l23xr',
 
-    // Set highest debug level (log everything!).
-    debug: 3,
+  //   // Set highest debug level (log everything!).
+  //   debug: 3,
 
-    // Set a logging function:
-    logFunction: function() {
-      var copy = Array.prototype.slice.call(arguments).join(' ');
-      $('.log').append(copy + '<br>');
-    }
-  });
+  //   // Set a logging function:
+  //   logFunction: function() {
+  //     var copy = Array.prototype.slice.call(arguments).join(' ');
+  //     $('.log').append(copy + '<br>');
+  //   }
+  // });
   
- // window.peer = new Peer({　host:'gtc-peerjs.herokuapp.com', secure:true, port:443, key: 'peerjs', debug: 3})
+ window.peer = new Peer({　host:'gtc-peerjs.herokuapp.com', secure:true, port:443, debug: 3})
 
   // Show this peer's ID.
   peer.on('open', function(id){
